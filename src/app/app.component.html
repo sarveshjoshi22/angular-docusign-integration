@@ -17,38 +17,91 @@
               <i class="material-icons">
                 account_circle
               </i>
-              Personal Details</h4>
+              Signer Details</h4>
             <div class="row">
               <div class="col-md-6">
+
                 <div class="form-group">
                   <input type="text" class="form-control" [(ngModel)]="resume.name" name="name" placeholder="Name"
                     #Name="ngModel" required
                     [ngClass]="{'is-invalid': Name.invalid && (Name.touched || resumeForm.submitted) }">
                 </div>
                 <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="resume.contactNo" name="contactNo"
+                    placeholder="Contact No." #ContactNo="ngModel" required
+                    [ngClass]="{'is-invalid': ContactNo.invalid && (ContactNo.touched || resumeForm.submitted) }">
+                </div>
+               <!--  <div class="form-group">
                   <div class="form-group">
                     <textarea class="form-control" [(ngModel)]="resume.address" name="address" rows="3"
                       placeholder="Address" #Address="ngModel" required
                       [ngClass]="{'is-invalid': Address.invalid && (Address.touched || resumeForm.submitted) }"></textarea>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="resume.contactNo" name="contactNo"
-                    placeholder="Contact No." #ContactNo="ngModel" required
-                    [ngClass]="{'is-invalid': ContactNo.invalid && (ContactNo.touched || resumeForm.submitted) }">
+                  <textarea class="form-control" [(ngModel)]="resume.address" name="address" rows="3"
+                    placeholder="Address" #Address="ngModel" required
+                    [ngClass]="{'is-invalid': Address.invalid && (Address.touched || resumeForm.submitted) }"></textarea>
                 </div>
-                <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="resume.email" name="emailId"
-                    placeholder="Email ID" #Email="ngModel" required
-                    [ngClass]="{'is-invalid': Email.invalid && (Email.touched || resumeForm.submitted) }">
-                </div>
-                <div class="form-group">
+                <!--   <div class="form-group">
                   <input type="text" class="form-control" [(ngModel)]="resume.socialProfile" name="socialProfile"
                     placeholder="Social Profile ">
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="shadow-sm card">
+          <div class="card-body">
+            <h4 class="card-title d-flex align-items-center">
+              <i class="material-icons">
+                email
+              </i>
+              Email detail</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="resume.email" name="emailId"
+                    placeholder="To: Email ID" #Email="ngModel" required
+                    [ngClass]="{'is-invalid': Email.invalid && (Email.touched || resumeForm.submitted) }">
+                </div>
+
+                <!--  <div class="form-group">
+                  <div class="form-group">
+                    <textarea class="form-control" [(ngModel)]="resume.address" name="address" rows="3"
+                      placeholder="Address" #Address="ngModel" required
+                      [ngClass]="{'is-invalid': Address.invalid && (Address.touched || resumeForm.submitted) }"></textarea>
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="resume.emailCC" name="emailIdCC"
+                    placeholder="CC: Email ID " #EmailCC="ngModel" required
+                    [ngClass]="{'is-invalid': EmailCC.invalid && (EmailCC.touched || resumeForm.submitted) }">
+                </div>
+
+
+                <!--   <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="resume.socialProfile" name="socialProfile"
+                    placeholder="Social Profile ">
+                </div> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <input type="text" class="form-control" [(ngModel)]="resume.emailSubject" name="emailSubject"
+                    placeholder="Email Subject" #emailSubject="ngModel" required
+                    [ngClass]="{'is-invalid': emailSubject.invalid && (emailSubject.touched || resumeForm.submitted) }">
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -194,21 +247,21 @@
             
           </div>
         </div> -->
-        <div class="card p-4">
+         <div class="card p-4">
           <div class="form-group">
             <label class="h4 mb-3" for="">Show your picture in Resume</label>
             <input type="file" class="form-control-file" (change)="fileChanged($event)" aria-describedby="fileHelpId">
           </div>
-          <img *ngIf="resume.profilePic" [src]="resume.profilePic" class="img-thumbnail">
-        </div>
+          <!-- <img *ngIf="resume.profilePic" [src]="resume.profilePic" class="img-thumbnail"> -->
+        </div> 
 
         <div class="shadow-sm card action-buttons">
           <button (click)="resumeForm.valid ? generatePdf('open') : ''"
             class="btn btn-primary d-flex align-items-center justify-content-center">
             <i class="material-icons">
               picture_as_pdf
-            </i> <span>Open PDF</span></button>
-          <button (click)="resumeForm.valid ? generatePdf('download') : ''"
+            </i> <span>Send Email</span></button>
+    <!--    <button (click)="resumeForm.valid ? generatePdf('download') : ''"
             class="btn btn-primary d-flex align-items-center justify-content-center">
             <i class="material-icons">
               cloud_download
@@ -217,7 +270,7 @@
             class="btn btn-primary d-flex align-items-center justify-content-center">
             <i class="material-icons">
               print
-            </i><span>Print PDF</span></button>
+            </i><span>Print PDF</span></button> -->  
 
           <button type='reset' (click)="resetForm()"
             class="btn btn-primary d-flex align-items-center justify-content-center">

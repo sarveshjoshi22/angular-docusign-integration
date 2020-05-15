@@ -4,6 +4,10 @@ export class Resume {
     address: string;
     contactNo: number;
     email: string;
+    emailSubject: string;
+    documentContent: string;
+    emailCC: string;
+    emailBCC: string;
     socialProfile: string;
     signature: string;
     experiences: Experience[] = [];

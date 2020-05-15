@@ -1,0 +1,12 @@
+{
+  "/oauth/*": {
+    "target":"https://account-d.docusign.com",
+    "secure": false,
+    "loglevel": "debug"
+  },
+  "/restapi/*":{
+    "target":"https://demo.docusign.net",
+    "secure": false,
+    "loglevel": "debug"
+  }
+}
