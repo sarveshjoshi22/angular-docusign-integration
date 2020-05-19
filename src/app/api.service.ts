@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { catchError, tap } from 'rxjs/internal/operators';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +42,9 @@ export class ApiService {
     return (error: any): Observable<T> => {
       console.error(error);
       this.log(`${operation} failed: ${error.message}`);
-
-      return of(result as T);
-    };
+      console.error(error);
+      return throwError(error);
+      };
   }
 
   private log(message: string) {
