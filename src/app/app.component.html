@@ -1,13 +1,33 @@
 <nav class="navbar navbar-expand navbar-light bg-primary d-flex justify-content-between">
   <div class="navbar-brand mb-0 h1 text-white">Docusign Demo</div>
   <div class="navbar-brand mb-0 h1 text-white">
-    <a href="https://github.com/ngdevelop-tech/angular-8-export-pdf" class="text-white h3 mr-3" title="GitHub"><i
-        class="fab fa-github"></i></a>
-    <a href="https://www.ngdevelop.tech/angular-8-export-to-pdf-using-pdfmake/" title="Blog" class="text-white h3"><i
+    <a href="https://github.com/sarveshjoshi22/angular-docusign-integration" class="text-white h3 mr-3"
+      title="GitHub"><i class="fab fa-github"></i></a>
+    <a href="https://github.com/sarveshjoshi22/angular-docusign-integration" title="Blog" class="text-white h3"><i
         class="fas fa-globe"></i></a>
   </div>
 </nav>
-<div class="container-fluid">
+<div *ngIf="!accessTokenStatus" class="container-fluid paddTop50">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 class="card-title align-items-center">
+        Remote signing using docusign
+      </h4>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type='reset' (click)="updateAccessToken()"
+        class="btn btn-primary align-items-center justify-content-center">
+        <i class="material-icons">
+          touch_app
+        </i><span>Start</span></button>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="accessTokenStatus" class="container-fluid">
   <form #resumeForm="ngForm">
     <div class="row">
       <div class="col-md-8">
@@ -83,7 +103,8 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <input type="text" class="form-control" [(ngModel)]="resume.signatureKeyword" name="signatureKeyword"
-                    placeholder="Keyword/unique string on which signature tab is required" #SignatureKeyword="ngModel" required
+                    placeholder="Keyword/unique string on which signature tab is required" #SignatureKeyword="ngModel"
+                    required
                     [ngClass]="{'is-invalid': SignatureKeyword.invalid && (SignatureKeyword.touched || resumeForm.submitted) }">
                 </div>
 
@@ -91,11 +112,13 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <input type="text" class="form-control" [(ngModel)]="resume.textFieldKeyword" name="textFieldKeyword"
-                    placeholder="Keyword/unique string on which text field tab is required" #TextFieldKeyword="ngModel" required
+                    placeholder="Keyword/unique string on which text field tab is required" #TextFieldKeyword="ngModel"
+                    required
                     [ngClass]="{'is-invalid': TextFieldKeyword.invalid && (TextFieldKeyword.touched || resumeForm.submitted) }">
                 </div>
               </div>
-              <div class="col-md-12">Note: If in case tab to place on multiple location with different keyword/unique string use comma to separate them in above text field</div>
+              <div class="col-md-12">Note: If in case tab to place on multiple location with different keyword/unique
+                string use comma to separate them in above text field</div>
             </div>
           </div>
         </div>

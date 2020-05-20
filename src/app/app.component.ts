@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Resume } from "./resume";
 import { ApiService } from "./api.service";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Params, Router } from "@angular/router";
 import { environment } from "../environments/environment";
-declare let pdfMake: any;
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
@@ -12,11 +11,8 @@ declare let pdfMake: any;
 export class AppComponent implements OnInit {
   resume = new Resume();
   queryParams: Params;
-  constructor(
-    private api: ApiService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
+  accessTokenStatus = false;
+  constructor(private api: ApiService, private router: Router) {
     this.resume = JSON.parse(sessionStorage.getItem("resume")) || new Resume();
   }
 
@@ -27,6 +23,7 @@ export class AppComponent implements OnInit {
 
     if (searchParams.get("access_token")) {
       sessionStorage.setItem("access_token", searchParams.get("access_token"));
+      this.accessTokenStatus = true;
     }
 
     if (
@@ -35,11 +32,6 @@ export class AppComponent implements OnInit {
     ) {
       console.log(sessionStorage.getItem("access_token"));
       this.router.navigate([""]);
-    } else {
-      console.log("get access token");
-      const getAuth = `${environment.authUrl}?response_type=token&scope=signature&client_id=
-      ${environment.clientId}&redirect_uri=${environment.redirectUrl}`;
-      window.location.href = getAuth;
     }
   }
 
@@ -79,7 +71,7 @@ export class AppComponent implements OnInit {
 
     console.log(signatureTab);
     console.log(textTab);
-   
+
     const payLoad = {
       recipients: {
         signers: [
@@ -124,11 +116,12 @@ export class AppComponent implements OnInit {
     this.api.postDocument(requestPayload).subscribe(
       (data) => {
         console.log(data);
+        this.resume = new Resume();
         alert("Email send successfully");
       },
       (error) => {
         console.log(error);
-        alert("Error in sending email, Please try again after some time...");
+        alert(`Error in sending email: Error ${error.error.errorCode}`);
       }
     );
   }
@@ -154,5 +147,12 @@ export class AppComponent implements OnInit {
     reader.onerror = (error) => {
       console.log("Error: ", error);
     };
+  }
+
+  updateAccessToken() {
+    console.log("get access token");
+    const getAuth = `${environment.authUrl}?response_type=token&scope=signature&client_id=
+    ${environment.clientId}&redirect_uri=${environment.redirectUrl}`;
+    window.location.href = getAuth;
   }
 }
